@@ -201,6 +201,10 @@ bool BigInt::operator==(const BigInt& other) const {
 }
 
 bool BigInt::operator<(const BigInt& other) const {
+    if ((*this) == other) {
+        return false;
+    }
+
     if (numDigits < other.numDigits) {
         return true;
     }
@@ -209,7 +213,32 @@ bool BigInt::operator<(const BigInt& other) const {
         return false;
     }
 
-    
+    for (size_t i = 0; i < numDigits; i++) {
+        uint8_t aDigit = (*this)[i];
+        uint8_t bDigit = other[i];
+
+        if (aDigit < bDigit) {
+            return true;
+        }
+
+        if (aDigit > bDigit) {
+            return false;
+        }
+    }
+
+    return false;
+}
+
+bool BigInt::operator<=(const BigInt& other) const {
+    return *this == other || *this < other;
+}
+
+bool BigInt::operator>(const BigInt& other) const {
+    return !(*this <= other);
+}
+
+bool BigInt::operator>=(const BigInt& other) const {
+    return !(*this < other);
 }
 
 BigInt BigInt::operator<<(size_t n) const {
