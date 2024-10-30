@@ -200,6 +200,10 @@ bool BigInt::operator==(const BigInt& other) const {
     return val == other.val;
 }
 
+bool BigInt::operator!=(const BigInt& other) const {
+    return val != other.val;
+}
+
 bool BigInt::operator<(const BigInt& other) const {
     if ((*this) == other) {
         return false;
